@@ -1,10 +1,10 @@
 #include<iostream>
 
 namespace SList {
-    template <typename DataType>
+    template <class DataType>
     class Cell {
         public:
-        DataType object;
+        DataType object = DataType();
         Cell *next;
 
         Cell() { next = nullptr; }
@@ -56,12 +56,12 @@ namespace SList {
             if(pos >= 0 and pos <= size) {
                 if(pos == 0) {
                     if(size == 0) {
-                      walk = head = tail = new Cell<DataType>(object);
+                        walk = head = tail = new Cell<DataType>(object);
                     } else {
-                      _walk_to(0);
-                      walk = new Cell<DataType>(object);
-                      walk->next = head;
-                      head = walk;
+                        _walk_to(0);
+                        walk = new Cell<DataType>(object);
+                        walk->next = head;
+                        head = walk;
                     }
                 } else {
                     if(pos == size) {
@@ -77,6 +77,12 @@ namespace SList {
                 size++;
             }
         }
+        void add(DataType object) {
+            _add_in(size, object);
+        }
+        void insert(int pos, DataType object) {
+            _add_in(pos, object);
+        }
 
         DataType get(int pos) {
             _walk_to(pos);
@@ -84,14 +90,6 @@ namespace SList {
         }
         DataType get() {
             return get(size-1);
-        }
-
-        void add(DataType object) {
-            _add_in(size, object);
-        }
-
-        void insert(int pos, DataType object) {
-            _add_in(pos, object);
         }
         
         void pop(int pos) {
@@ -126,6 +124,11 @@ namespace SList {
 
         bool empty() {
             return size == 0;
+        }
+
+        DataType* ref(int pos) {
+            _walk_to(pos);
+            return &(walk->object);
         }
     };
 }
