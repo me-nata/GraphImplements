@@ -126,7 +126,11 @@ namespace SList {
             return size == 0;
         }
 
-        DataType* ref(int pos) {
+        Cell<DataType>* ref(int pos) {
+            _walk_to(pos);
+            return walk;
+        }
+        DataType* ref_object(int pos) {
             _walk_to(pos);
             return &(walk->object);
         }
